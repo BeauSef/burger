@@ -1,68 +1,26 @@
-// // Make sure we wait to attach our handlers until the DOM is fully loaded.
-// $(function() {
-//     $(".change-sleep").on("click", function(event) {
-//       var id = $(this).data("id");
-//       var newSleep = $(this).data("newsleep");
-  
-//       var newSleepState = {
-//         sleepy: newSleep
-//       };
-  
-//       // Send the PUT request.
-//       $.ajax("/api/burger/" + id, {
-//         type: "PUT",
-//         data: newSleepState
-//       }).then(
-//         function() {
-//           console.log("changed sleep to", newSleep);
-//           // Reload the page to get the updated list
-//           location.reload();
-//         }
-//       );
-//     });
-  
-//     $(".create-form").on("submit", function(event) {
-//       // Make sure to preventDefault on a submit event.
-//       event.preventDefault();
-  
-//       var newBurger = {
-//         name: $("#ca").val().trim(),
-//         sleepy: $("[name=sleepy]:checked").val().trim()
-//       };
-  
-//       // Send the POST request.
-//       $.ajax("/api/burger", {
-//         type: "POST",
-//         data: newBurger
-//       }).then(
-//         function() {
-//           console.log("created new burger");
-//           // Reload the page to get the updated list
-//           location.reload();
-//         }
-//       );
-//     });
+// Import the ORM to create functions that will interact with the database.
+var orm = require("../config/orm.js");
 
-//     // update: function(id, callback){
-//     //     var condition = "id = " + id;
-//     //     onpointermove.uPlate(burdees
-//     //         devoured: true)
-//     // }, condition,callback)
+var burger = {
+  selectAll: function(cb) {
+    orm.selectAll("burgers", function(res) {
+      cb(res);
+    });
+  },
+  // The variables cols and vals are arrays.
+  insertOne: function(cols, vals, cb) {
+    orm.insertOne("burgers", cols, vals, function(res) {
+      cb(res);
+    });
+  },
+  updateOne: function(objColVals, condition, cb) {
+    orm.updateOne("burgers", objColVals, condition, function(res) {
+      cb(res);
+    });
+  },
+};
 
-  
-//     $(".deleteBurger").on("click", function(event) {
-//       var id = $(this).data("id");
-  
-//       // Send the DELETE request.
-//       $.ajax("/api/burger/" + id, {
-//         type: "DELETE"
-//       }).then(
-//         function() {
-//           console.log("deleted burger", id);
-//           // Reload the page to get the updated list
-//           location.reload();
-//         }
-//       );
-//     });
-//   });
-  
+// Export the database functions for the controller (catsController.js).
+module.exports = burger;
+
+
