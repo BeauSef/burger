@@ -4,8 +4,10 @@ USE burgers_db;
 
 CREATE TABLE burgers (
 	id Int AUTO_INCREMENT NOT NULL,
-	burgerName VARCHAR(255) NOT NULL,
-	devoured BOOLEAN DEFAULT false,
+	burger_name VARCHAR(255) NOT NULL,
+	devoured boolean DEFAULT true,
 	time TIMESTAMP DEFAULT now() on UPDATE now(),
 	PRIMARY KEY (id) 
     );
+
+
