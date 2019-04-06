@@ -16,7 +16,7 @@ router.get("/", function(req, res) {
 });
 
 router.post("/burgers", function(req, res) {
-  burger.create([
+  burger.insertOne([
     "burger_name "
   ], [
     req.body.burger_name 
@@ -30,7 +30,7 @@ router.put("/burgers/:id", function(req, res) {
 
   console.log("condition", condition);
 
-  burger.update({
+  burger.updateOne({
     devoured: true
   }, condition, function(result) {
     if (result.changedRows == 0) {
